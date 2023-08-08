@@ -2,7 +2,6 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const prefix = "!";
 
-// Import modul PresenceData dan ActivityType
 const { PresenceData, ActivityType } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -10,12 +9,25 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 client.on("message", (message) => {
 	console.log(`Pesan baru dari: ${message.author.tag} di channel: ${message.channel.name}`);
 	console.log(`Isi Pesan: ${message.content}`);
+
+	// Cek apakah pesan berasal dari pengguna dan memiliki prefix
+	if (message.author.bot || !message.content.startsWith(prefix)) {
+		return;
+	}
+
+	// Pisahkan argumen dari pesan
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
+	// Cek jika perintah adalah "ping"
+	if (command === "ping") {
+		message.reply("pong");
+	}
 });
 
 client.once("ready", () => {
 	console.log(`Ready! Logged in as ${client.user.tag}`);
 
-	// Definisikan PresenceData dan set aktivitas kustom
 	const presenceData = {
 		status: 'dnd',
 		activities: [
@@ -28,9 +40,8 @@ client.once("ready", () => {
 
 	client.user.setPresence(presenceData);
 
-	
 	const channel = client.channels.cache.get("757979533931446282");
+	channel.send("https://cdn.discordapp.com/attachments/1137451858588344451/1138490610999906464/image.png");
+});
 
-channel.send("https://cdn.discordapp.com/attachments/1137451858588344451/1138490610999906464/image.png");
-	});
 client.login(token);
