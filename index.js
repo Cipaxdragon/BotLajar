@@ -1,31 +1,35 @@
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const prefix = "!";
-// Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+// Import modul PresenceData dan ActivityType
+const { PresenceData, ActivityType } = require('discord.js');
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 client.on("message", (message) => {
 	console.log(`Pesan baru dari: ${message.author.tag} di channel: ${message.channel.name}`);
 	console.log(`Isi Pesan: ${message.content}`);
-  });
-  
-
-// When the client is ready, run this code (only once)
-client.once(Events.ClientReady, c => {
-	
-	console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-client.on("ready", () => {
-	console.log(`Aktivitas Di Aktifkan`);
-	client.user.setActivity("Menghancurkan Dunia");
+client.once("ready", () => {
+	console.log(`Ready! Logged in as ${client.user.tag}`);
 
-	//Menghingirim pesan
+	// Definisikan PresenceData dan set aktivitas kustom
+	const presenceData = {
+		status: 'online',
+		activities: [
+			{
+				name: 'Desahan',
+				type: ActivityType.Listening
+			}
+		]
+	};
+
+	client.user.setPresence(presenceData);
+
 	const channel = client.channels.cache.get("757979533931446282");
-	channel.send("Anjing Logikanya Susah Asu client.on(\"message\", (message) => { gak mau jalan @everyone");
-})
+	channel.send("Kontol");
+});
 
-
-// Log in to Discord with your client's token
 client.login(token);
