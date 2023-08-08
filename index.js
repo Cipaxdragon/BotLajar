@@ -37,7 +37,6 @@ client.once("ready", () => {
 			}
 		]
 	};
-
 	client.user.setPresence(presenceData);
 
 	const channel = client.channels.cache.get("757979533931446282");
