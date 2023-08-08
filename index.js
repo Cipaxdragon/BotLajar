@@ -17,10 +17,10 @@ client.once("ready", () => {
 
 	// Definisikan PresenceData dan set aktivitas kustom
 	const presenceData = {
-		status: 'online',
+		status: 'dnd',
 		activities: [
 			{
-				name: 'Desahan',
+				name: 'Spotify',
 				type: ActivityType.Listening
 			}
 		]
@@ -28,8 +28,9 @@ client.once("ready", () => {
 
 	client.user.setPresence(presenceData);
 
+	
 	const channel = client.channels.cache.get("757979533931446282");
-	channel.send("Kontol");
-});
 
+channel.send("https://cdn.discordapp.com/attachments/1137451858588344451/1138490610999906464/image.png");
+	});
 client.login(token);
