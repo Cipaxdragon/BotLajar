@@ -15,6 +15,8 @@ client.on("message", (message) => {
 		return;
 	}
 
+
+	
 	// Pisahkan argumen dari pesan
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
