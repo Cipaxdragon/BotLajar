@@ -21,7 +21,10 @@ client.on("message", (message) => {
 		return;
 	}
 	
-	
+		// Cek apakah pesan berasal dari pengguna dan memiliki prefix
+		if (message.author.bot || !message.content.startsWith(prefix)) {
+			return;
+		}
 	// Pisahkan argumen dari pesan
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
